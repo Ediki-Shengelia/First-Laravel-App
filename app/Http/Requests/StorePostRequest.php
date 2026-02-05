@@ -24,7 +24,6 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|min:5|max:50',
             'content' => 'required|min:10',
-            // 'user_id' => auth()->id()
         ];
     }
 }
