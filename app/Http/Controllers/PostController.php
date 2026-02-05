@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Notifications\AllAboutTask;
 use Illuminate\Http\Request;
+use App\Notifications\DeletePost;
 
 class PostController extends Controller
 {
@@ -53,6 +54,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
         return view('posts.edit', compact('post'));
     }
 
@@ -69,8 +71,11 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $this->authorize('delete', $post);
+        $post->delete();
+        auth()->user()->notify(new DeletePost($post));
+        return redirect()->route('post.index')->with('success', "Task deleted successfully");
     }
 }

@@ -12,6 +12,11 @@
                 <a href="{{ route('post.show', $post) }}">
                     <p>{{ $post->title }}</p>
                 </a>
+                <form action="{{ route('post.destroy', $post) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="px-3 py-1 bg-red-400 text-white">Delete</button>
+                </form>
             </div>
         </li>
     @endforeach

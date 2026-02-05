@@ -23,9 +23,15 @@
             <p>You have {{ auth()->user()->unreadNotifications->count() }} messages</p>
         @endauth
 
-        @if (auth()->user()->notifications->count() > 0)
-            @foreach (auth()->user()->notifications as $notification)
-                {{ $notification->data['message'] ?? '' }} {{ $notification->data['title'] ?? '' }}
+        @if (auth()->user()->unreadNotifications->count() > 0)
+            @foreach (auth()->user()->unreadNotifications as $notification)
+                {{ $notification->data['message'] ?? '' }} {{ $notification->data['post_title'] ?? '' }}
+
+
+                <span class="text-red-500">
+                    {{ $notification->data['message_delete'] ?? '' }} 
+                    {{ $notification->data['id'] ?? '' }}
+                </span>
                 <form action="{{ route('readOne', $notification) }}" method="post">
                     @csrf
                     <button class="bg-green-200">mark as read</button>
@@ -33,5 +39,5 @@
             @endforeach
         @endif
     </div>
-    <a href="{{ route('post.index') }}">post page</a>
+    <a href="{{ route('post.index') }}" class="fixed top-4 left-3 bg-pink-500 py-1 px-4">post page</a>
 </x-app-layout>
