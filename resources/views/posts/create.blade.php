@@ -1,5 +1,5 @@
 <x-main-layout>
-    <h1>add a post</h1>
+    <h1 class="text-red-800 text-2xl text-center">Create Post Page</h1>
     <div class="w-fit mx-auto mt-20 ">
         <form action="{{ route('post.store') }}" method="post">
             @csrf

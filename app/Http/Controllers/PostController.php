@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->latest()->paginate(5);
+        $posts = Post::all();
         return view('posts.index', compact('posts'));
     }
 
@@ -30,17 +30,18 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request,)
     {
-        
+
         Post::create($request->validated());
-        return redirect()->route('post.index')->with('success','Post created successfullly');
+        return redirect()->route('post.index')->with('success', 'Post created successfullly');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        //
+        $this->authorize('view', $post);
+        return view('posts.show', compact('post'));
     }
 
     /**

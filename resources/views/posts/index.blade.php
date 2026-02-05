@@ -8,9 +8,10 @@
     @endif
     @foreach ($posts as $post)
         <li>
-            <div class="flex gap-2 border-2 px-4 py-1">
-                <p>{{ $post->title }}</p>
-                <img class="rounded-l-lg shadow-lg shadow-red-200" src="{{ asset($post->user->photo) }}" alt="User photo">
+            <div class="flex gap-2 border-2 px-4 py-1 w-fit mt-4 mx-auto">
+                <a href="{{ route('post.show', $post) }}">
+                    <p>{{ $post->title }}</p>
+                </a>
             </div>
         </li>
     @endforeach
