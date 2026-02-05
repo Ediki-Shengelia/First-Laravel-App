@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\AllAboutTask;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -31,8 +33,9 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        
-        $request->user()->posts()->create($request->validated());
+
+        $post = $request->user()->posts()->create($request->validated());
+        auth()->user()->notify(new AllAboutTask($post));
         return redirect()->route('post.index')->with('success', 'Post created successfullly');
     }
 
@@ -48,17 +51,19 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+        $post->update($request->validated());
+        return redirect()->route('post.index')->with('success', "Post updated successfully");
     }
 
     /**

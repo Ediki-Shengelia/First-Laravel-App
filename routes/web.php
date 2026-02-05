@@ -20,4 +20,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('post', PostController::class);
 });
 
+Route::post('read/{id}', function ($id) {
+    auth()->user()
+        ->notifications
+        ->where('id', $id)
+        ->markAsRead()
+    ;
+    return back();
+})->name('readOne');
+Route::post('allRead', function () {
+    auth()->user()
+        ->unreadNotifications
+        ->markAsRead();
+    return back();
+})->name('allRead');
 require __DIR__ . '/auth.php';

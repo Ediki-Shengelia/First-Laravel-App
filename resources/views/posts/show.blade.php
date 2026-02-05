@@ -3,8 +3,9 @@
     @if ($post->content)
         <p>{{ $post->content }}</p>
     @endif
+    <a href="{{ route('post.edit', $post) }}">Edit this post</a>
     <div class="flex gap-3 w-fit mx-auto mt-5">
-        <p>This post made by {{$post->user->name}}</p>
-        <img  class="w-12 h-12" src="{{ Storage::url($post->user->photo) }}" alt="">
+        <p>This post made by {{ $post->user->name }}</p>
+        <img class="w-12 h-12" src="{{ Storage::url($post->user->photo) }}" alt="">
     </div>
 </x-main-layout>

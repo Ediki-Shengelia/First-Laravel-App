@@ -14,5 +14,24 @@
             </div>
         </div>
     </div>
-    <a href="{{route('post.index')}}">post page</a>
+    <div>
+        <form action="{{ route('allRead') }}" method="post">
+            @csrf
+            <button class="bg-red-100"> Read all messages</button>
+        </form>
+        @auth
+            <p>You have {{ auth()->user()->unreadNotifications->count() }} messages</p>
+        @endauth
+
+        @if (auth()->user()->notifications->count() > 0)
+            @foreach (auth()->user()->notifications as $notification)
+                {{ $notification->data['message'] ?? '' }} {{ $notification->data['title'] ?? '' }}
+                <form action="{{ route('readOne', $notification) }}" method="post">
+                    @csrf
+                    <button class="bg-green-200">mark as read</button>
+                </form>
+            @endforeach
+        @endif
+    </div>
+    <a href="{{ route('post.index') }}">post page</a>
 </x-app-layout>
