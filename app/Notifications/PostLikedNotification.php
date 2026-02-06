@@ -2,19 +2,20 @@
 
 namespace App\Notifications;
 
+use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LikeNofitication extends Notification
+class PostLikedNotification extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public Post $post)
     {
         //
     }
@@ -26,7 +27,7 @@ class LikeNofitication extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -48,7 +49,10 @@ class LikeNofitication extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'type' => 'like',
+            'message_like' => auth()->user()->name . ' liked your post',
+            'post_id' => $this->post->id,
+            'user_id' => auth()->id(),
         ];
     }
 }

@@ -29,9 +29,12 @@
 
 
                 <span class="text-red-500">
-                    {{ $notification->data['message_delete'] ?? '' }} 
+                    {{ $notification->data['message_delete'] ?? '' }}
                     {{ $notification->data['id'] ?? '' }}
                 </span>
+
+                <span class="text-red-800">{{ $notification->data['message_like'] ?? null }}</span>
+
                 <form action="{{ route('readOne', $notification) }}" method="post">
                     @csrf
                     <button class="bg-green-200">mark as read</button>
