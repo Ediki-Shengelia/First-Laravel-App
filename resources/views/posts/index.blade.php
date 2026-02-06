@@ -11,7 +11,10 @@
             <div class="flex gap-2 border-2 px-4 py-1 w-fit mt-4 mx-auto">
                 <a href="{{ route('post.show', $post) }}">
                     <p>{{ $post->title }}</p>
+
                 </a>
+                <br>
+                <x-like-button :post="$post" />
                 <form action="{{ route('post.destroy', $post) }}" method="post">
                     @csrf
                     @method('DELETE')
