@@ -11,10 +11,13 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Post $post)
     {
-        //
+        $comments = $post->comments()->latest()->get();
+
+        return view('comments.index', compact('post', 'comments'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,10 +45,11 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(\App\Models\Comment $comment)
-    {
-        return view('comments.index', compact('comment'));
-    }
+    // public function show(Post $post)
+    // {
+
+    //     return view('comments.index', compact('post'));
+    // }
 
     /**
      * Update the specified resource in storage.

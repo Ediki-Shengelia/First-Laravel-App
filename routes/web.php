@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::post('comment/{post}/add', [CommentController::class, 'storeComment'])
         ->name('comment.store');
     Route::apiResource('comment', CommentController::class);
+    Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('posts.comments.index');
+
     Route::post('post/{post}/like', [LikeController::class, 'toggleLike'])->name('like');
 });
 

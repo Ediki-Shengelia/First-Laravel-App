@@ -14,9 +14,9 @@
                 </a>
                 <br>
                 @if ($post->comments->count() > 0)
-                    <a class="bg-pink-800 text-white px-2 py-0 rounded-md" href="{{ route('comment.show', $post) }}">show
+                    <a class="bg-pink-800 text-white px-2 py-0 rounded-md" href="{{ route('posts.comments.index', $post) }}">show
                         me
-                        comments</a>
+                        comments ({{ $post->comments_count ?? $post->comments->count() }})</a>
                 @endif
                 <form action="{{ route('comment.store', $post) }}" method="POST">
 
