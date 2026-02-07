@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('/photoUpload', [ProfileController::class, 'photoUpload'])->name('user.photo');
     Route::resource('post', PostController::class);
+    Route::post('comment/{post}/add', [CommentController::class, 'storeComment'])
+        ->name('comment.store');
+    Route::apiResource('comment', CommentController::class);
     Route::post('post/{post}/like', [LikeController::class, 'toggleLike'])->name('like');
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,7 +15,7 @@ class AddCommentNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public Post $post)
     {
         //
     }
@@ -26,7 +27,7 @@ class AddCommentNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -48,7 +49,7 @@ class AddCommentNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'message_comm' => auth()->user()->name . "comment on your post about " . $this->post->title
         ];
     }
 }

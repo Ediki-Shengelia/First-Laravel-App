@@ -34,6 +34,7 @@
                 </span>
 
                 <span class="text-red-800">{{ $notification->data['message_like'] ?? null }}</span>
+                <span class="text-green-800">{{ $notification->data['message_comm'] ?? null }}</span>
 
                 <form action="{{ route('readOne', $notification) }}" method="post">
                     @csrf

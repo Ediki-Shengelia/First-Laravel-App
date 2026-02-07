@@ -11,8 +11,19 @@
             <div class="flex gap-2 border-2 px-4 py-1 w-fit mt-4 mx-auto">
                 <a href="{{ route('post.show', $post) }}">
                     <p>{{ $post->title }}</p>
-
                 </a>
+                <br>
+                @if ($post->comments->count() > 0)
+                    <a class="bg-pink-800 text-white px-2 py-0 rounded-md" href="{{ route('comment.show', $post) }}">show
+                        me
+                        comments</a>
+                @endif
+                <form action="{{ route('comment.store', $post) }}" method="POST">
+
+                    @csrf
+                    <textarea name="comment" id="" cols="20" rows="1"></textarea>
+                    <button type="submit" class="px-4 py-1 bg-gray-600 text-red-400">Comment</button>
+                </form>
                 <br>
                 <x-like-button :post="$post" />
                 <form action="{{ route('post.destroy', $post) }}" method="post">
